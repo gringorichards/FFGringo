@@ -145,3 +145,11 @@ report_captain_points.to_csv(r'hello\static\report_captain_points.csv', header=N
 
 report_chips_played=df_manager_chips_names[['player_name','name','played_time_formatted','event']].sort_values(by='event')
 report_chips_played.to_csv(r'hello\static\report_chips_played.csv', header=None, index=None, sep=' ', mode='a')
+
+from sqlalchemy import create_engine
+import pandas as pd
+import subprocess
+proc = subprocess.Popen('heroku config:get DATABASE_URL -a ffgringo', stdout=subprocess.PIPE, shell=True)
+db_url = proc.stdout.read().decode('utf-8').strip() + '?sslmode=require'
+engine = create_engine(db_url)
+report_captain_points.to_sql('hello_captainsreport', engine)
