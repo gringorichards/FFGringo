@@ -152,5 +152,5 @@ import pandas as pd
 import os
 DATABASE_URL = os.environ['DATABASE_URL']
 engine = create_engine(DATABASE_URL)
-report_captain_points.to_sql('hello_captainsreport', engine)
+report_captain_points.to_sql('report_captain_points', engine)
 print("done")
