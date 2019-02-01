@@ -149,9 +149,8 @@ report_chips_played.to_csv(r'hello\static\report_chips_played.csv', header=None,
 print("start")
 from sqlalchemy import create_engine
 import pandas as pd
-import subprocess
-proc = subprocess.Popen('heroku config:get DATABASE_URL -a ffgringo', stdout=subprocess.PIPE, shell=True)
-db_url = proc.stdout.read().decode('utf-8').strip() + '?sslmode=require'
-engine = create_engine(db_url)
+import os
+DATABASE_URL = os.environ['DATABASE_URL']
+engine = create_engine(DATABASE_URL)
 report_captain_points.to_sql('hello_captainsreport', engine)
 print("done")
