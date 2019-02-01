@@ -7,4 +7,3 @@ class Greeting(models.Model):
 class CaptainsReport(models.Model):
     manager_name = models.CharField(max_length=100)
     points = models.IntegerField()
-ss
