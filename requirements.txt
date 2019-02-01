@@ -5,5 +5,4 @@ pandas
 seaborn
 matplotlib
 numpy
-json
 requests
