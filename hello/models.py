@@ -4,6 +4,11 @@ from django.db import models
 class Greeting(models.Model):
     when = models.DateTimeField("date created", auto_now_add=True)
 
-class CaptainsReport(models.Model):
-    manager_name = models.CharField(max_length=100)
-    points = models.IntegerField()
+class ReportCaptainPoints(models.Model):
+    index = models.BigIntegerField(blank=True, null=False, primary_key=True)
+    player_name = models.TextField(blank=True, null=True)
+    total_points = models.BigIntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'report_captain_points'
