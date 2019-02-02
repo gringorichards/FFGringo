@@ -16,7 +16,19 @@ def reports(request):
     context = {'report_list': report_list}
     return render(request, 'reports.html', context)
 
-def manager_reports(request):
+def manager_reports1(request):
+    image_data = open("hello/static/point_burners.png", "rb").read()
+    return HttpResponse(image_data, content_type="image/png")
+
+def manager_reports2(request):
+    image_data = open("hello/static/point_burners.png", "rb").read()
+    return HttpResponse(image_data, content_type="image/png")
+
+def manager_reports3(request):
+    image_data = open("hello/static/point_burners.png", "rb").read()
+    return HttpResponse(image_data, content_type="image/png")
+
+def manager_reports4(request):
     image_data = open("hello/static/point_burners.png", "rb").read()
     return HttpResponse(image_data, content_type="image/png")
 
