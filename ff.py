@@ -161,3 +161,10 @@ report_captain_points.to_sql('report_captain_points',engine,if_exists='replace')
 
 report_chips_played=df_manager_chips_names[['player_name','name','played_time_formatted','event']].sort_values(by='event')
 report_chips_played.to_sql('report_chips_played',engine,if_exists='replace')
+
+fig=plt.figure(figsize=(30, 20))
+fig=report_point_burner.plot(kind='barh',x='player_name', y='points_on_bench',legend=False)
+fig.set_title('Hit Burners\n',fontsize=20)
+fig.set_ylabel('Manager',fontsize=14)
+fig.set_xlabel('Points Burned',fontsize=14)
+plt.savefig('hello/static/point_burners.png')

@@ -16,6 +16,10 @@ def reports(request):
     context = {'report_list': report_list}
     return render(request, 'reports.html', context)
 
+def manager_reports(request):
+    image_data = open("hello/static/point_burners.png", "rb").read()
+    return HttpResponse(image_data, content_type="image/png")
+
 def db(request):
     greeting = Greeting()
     greeting.save()
