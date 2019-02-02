@@ -3,14 +3,14 @@
 
 {% block content %}
 
-{% if latest_question_list %}
+{% if report_list %}
     <ul>
-    {% for question in latest_question_list %}
-    <li><a href="/polls/{{ question.id }}/">{{ question.report_name }}</a></li>
+    {% for report in report_list %}
+    <li><a href="/reports/manager_reports/{{ report.id }}/">{{ report.report_name }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
-    <p>No polls are available.</p>
+    <p>No manager reports are available.</p>
 {% endif %}
 
 {% endblock %}

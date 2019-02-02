@@ -12,8 +12,8 @@ def index(request):
     return render(request, "index.html")
 
 def reports(request):
-    latest_question_list = ManagerReports.objects.all()
-    context = {'latest_question_list': latest_question_list}
+    report_list = ManagerReports.objects.all()
+    context = {'report_list': report_list}
     return render(request, 'reports.html', context)
 
 def db(request):
