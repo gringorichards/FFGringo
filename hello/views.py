@@ -12,12 +12,11 @@ def index(request):
     return render(request, "index.html")
 
 def reports(request):
-    reportcaptain = ReportCaptainPoints.objects.all()
-    output = ', '.join([p.player_name for p in reportcaptain])
-    return HttpResponse(output)
+    latest_question_list = ReportCaptainPoints.objects.all()
+    context = {'latest_question_list': latest_question_list}
+    return render(request, 'reports.html', context)
 
 def db(request):
-
     greeting = Greeting()
     greeting.save()
 
