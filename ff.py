@@ -7,8 +7,13 @@ from pandas.io.json import json_normalize
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-# %matplotlib inline
 pd.set_option('display.max_columns', None)
+print("start")
+from sqlalchemy import create_engine
+import pandas as pd
+import os
+DATABASE_URL = os.environ['DATABASE_URL']
+engine = create_engine(DATABASE_URL)
 
 # Kick off by grabbing the bootstrap data - gameweek & player details are in here
 # ['assists', 'bonus', 'bps', 'chance_of_playing_next_round', 'chance_of_playing_this_round', 'clean_sheets',
@@ -22,12 +27,14 @@ pd.set_option('display.max_columns', None)
 json_bootstrap = json.loads(requests.get('https://fantasy.premierleague.com/drf/bootstrap').text)
 df_elements = json_normalize(json_bootstrap['elements'])
 latest_gameweek= json_bootstrap['current-event']
+df_elements.to_sql('df_elements',engine,if_exists='replace')
 
 # Then get the league data
 # ['entry', 'entry_name', 'event_total', 'id', 'last_rank', 'league', 'movement', 'own_entry',
 # 'player_name', 'rank', 'rank_sort', 'start_event', 'stop_event', 'total']
 json_league_standings = json.loads(requests.get('https://fantasy.premierleague.com/drf/leagues-classic-standings/231600').text)
 df_league_standings = json_normalize(json_league_standings['standings'], 'results')
+df_league_standings.to_sql('df_league_standings',engine,if_exists='replace')
 
 # Now loop through league standings and concatenate a dataframe with entry history in
 # ['bank', 'entry', 'event', 'event_transfers', 'event_transfers_cost', 'id', 'movement', 'overall_rank',
@@ -53,7 +60,8 @@ for ls_index,ls_row in (df_league_standings.iterrows()):
     else:
         df_tmp = json_normalize(json_entry_history['chips'])
         df_manager_chips = pd.concat([df_manager_chips, df_tmp], ignore_index=True)
-
+df_manager_history.to_sql('df_manager_history',engine,if_exists='replace')
+df_manager_chips.to_sql('df_manager_chips',engine,if_exists='replace')
 
 # We can use the last loop to set up the player picks for each week
 # element  is_captain  is_vice_captain  multiplier  position   Entry  round
@@ -76,6 +84,7 @@ for ls_index,ls_row in (df_manager_history.iterrows()):
         df_tmp['entry']=ls_row['entry']
         df_tmp['round']=ls_row['event']
         df_manager_history_picks = pd.concat([df_manager_history_picks, df_tmp], ignore_index=True)
+df_manager_history_picks.to_sql('df_manager_history_picks',engine,if_exists='replace')
 
 # For each player and the round they played in - we need their points
 # This will be keyed by entry and event
@@ -98,6 +107,7 @@ for element in list_of_unique_players:
     else:
        df_tmp = json_normalize(json_manager_history_picks_players['history'])
        df_manager_history_picks_players = pd.concat([df_manager_history_picks_players, df_tmp], ignore_index=True )
+df_manager_history_picks_players.to_sql('df_manager_history_picks_players',engine,if_exists='replace')
 
 # df_manager_history_with_name
 # THis is combo of entry details (name and things) and the history
@@ -106,7 +116,7 @@ for element in list_of_unique_players:
 # 'event_total', 'id_y', 'last_rank', 'league', 'movement_y', 'own_entry', 'player_name', 'rank_y',
 # 'rank_sort_y', 'start_event', 'stop_event', 'total']
 df_manager_history_with_name=pd.merge(df_manager_history, df_league_standings, on='entry')
-
+df_manager_history_with_name.to_sql('df_manager_history_with_name',engine,if_exists='replace')
 # df_manager_history_picks_with_names
 # Can work out captain points from this = basically each week#s picks for each game week for each manager
 #['element', 'is_captain', 'is_vice_captain', 'multiplier', 'position', 'entry',
@@ -122,35 +132,29 @@ df_manager_history_with_name=pd.merge(df_manager_history, df_league_standings, o
 # 'rank_sort', 'start_event', 'stop_event', 'total']
 df_tmp=pd.merge(df_manager_history_picks,df_manager_history_picks_players,on=['element','round'])
 df_manager_history_picks_with_names=pd.merge(df_tmp,df_league_standings,on='entry')
+df_manager_history_picks_with_names.to_sql('df_manager_history_picks_with_names',engine,if_exists='replace')
 # Captains as above but just the captain picks and points doubled = should be tripled for TC chip!
 df_captains=(df_manager_history_picks_with_names[df_manager_history_picks_with_names.is_captain==True])
 # This merge tells us when the chips were played and factors in 3x chip for captain points.
 df_captains = pd.merge(df_captains,df_manager_chips,left_on=['entry','round'],right_on=['entry','event'] ,how='outer')
 df_captains['total_captain_point_multiplier'] = np.where(df_captains['name']=='3xc',3,2)
 df_captains['total_captain_points'] = np.where(1==1,df_captains['total_points'] * df_captains['total_captain_point_multiplier'],9999)
+df_captains.to_sql('df_captains',engine,if_exists='replace')
 
 #['chip', 'entry', 'event', 'name', 'played_time_formatted', 'status', 'time',
 #'entry_name', 'event_total', 'id', 'last_rank', 'league',
 #'movement', 'own_entry', 'player_name', 'rank', 'rank_sort', 'start_event', 'stop_event', 'total']
 df_manager_chips_names=pd.merge(df_manager_chips,df_league_standings, on='entry')
+df_manager_chips_names.to_sql('df_manager_chips_names',engine,if_exists='replace')
 
 report_transfer_costs=df_manager_history_with_name['event_transfers_cost'].groupby(df_manager_history_with_name['player_name']).sum().reset_index().sort_values(by='event_transfers_cost',ascending=False)
-report_transfer_costs.to_csv(r'hello\static\report_transfer_costs.csv', header=None, index=None, sep=' ', mode='a')
+report_transfer_costs.to_sql('report_transfer_costs',engine,if_exists='replace')
 
 report_point_burner=df_manager_history_with_name['points_on_bench'].groupby(df_manager_history_with_name['player_name']).sum().reset_index().sort_values(by='points_on_bench',ascending=False)
-report_point_burner.to_csv(r'hello\static\report_point_burner.csv', header=None, index=None, sep=' ', mode='a')
+report_point_burner.to_sql('report_point_burner',engine,if_exists='replace')
 
 report_captain_points=df_captains['total_points'].groupby(df_captains['player_name']).sum().reset_index().sort_values(by='total_points',ascending=False)
-report_captain_points.to_csv(r'hello\static\report_captain_points.csv', header=None, index=None, sep=' ', mode='a')
+report_captain_points.to_sql('report_captain_points',engine,if_exists='replace')
 
 report_chips_played=df_manager_chips_names[['player_name','name','played_time_formatted','event']].sort_values(by='event')
-report_chips_played.to_csv(r'hello\static\report_chips_played.csv', header=None, index=None, sep=' ', mode='a')
-
-print("start")
-from sqlalchemy import create_engine
-import pandas as pd
-import os
-DATABASE_URL = os.environ['DATABASE_URL']
-engine = create_engine(DATABASE_URL)
-report_captain_points.to_sql('report_captain_points', engine)
-print("done")
+report_chips_played.to_sql('report_chips_played',engine,if_exists='replace')
