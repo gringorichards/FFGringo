@@ -12,3 +12,11 @@ class ReportCaptainPoints(models.Model):
     class Meta:
         managed = False
         db_table = 'report_captain_points'
+
+class ManagerReports(models.Model):
+    id = models.BigIntegerField(blank=True, null=False, primary_key=True)
+    report_name = models.CharField(max_length=30)
+
+    class Meta:
+        managed = False
+        db_table = 'manager_reports'

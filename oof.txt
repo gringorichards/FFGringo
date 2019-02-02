@@ -345,6 +345,14 @@ class HelloGreeting(models.Model):
         db_table = 'hello_greeting'
 
 
+class ManagerReports(models.Model):
+    report_name = models.CharField(max_length=30)
+
+    class Meta:
+        managed = False
+        db_table = 'manager_reports'
+
+
 class ReportCaptainPoints(models.Model):
     index = models.BigIntegerField(blank=True, null=True)
     player_name = models.TextField(blank=True, null=True)

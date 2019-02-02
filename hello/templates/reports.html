@@ -6,7 +6,7 @@
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
-        <li><a href="/polls/{{ question.player_name }}/">{{ question.player_name }}</a></li>
+    <li><a href="/polls/{{ question.id }}/">{{ question.report_name }}</a></li>
     {% endfor %}
     </ul>
 {% else %}

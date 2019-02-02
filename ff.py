@@ -146,6 +146,10 @@ df_captains.to_sql('df_captains',engine,if_exists='replace')
 df_manager_chips_names=pd.merge(df_manager_chips,df_league_standings, on='entry')
 df_manager_chips_names.to_sql('df_manager_chips_names',engine,if_exists='replace')
 
+#
+# reports
+
+
 report_transfer_costs=df_manager_history_with_name['event_transfers_cost'].groupby(df_manager_history_with_name['player_name']).sum().reset_index().sort_values(by='event_transfers_cost',ascending=False)
 report_transfer_costs.to_sql('report_transfer_costs',engine,if_exists='replace')
 
