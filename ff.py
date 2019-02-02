@@ -8,7 +8,6 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 pd.set_option('display.max_columns', None)
-print("start")
 from sqlalchemy import create_engine
 import pandas as pd
 import os
@@ -84,7 +83,7 @@ for ls_index,ls_row in (df_manager_history.iterrows()):
         df_tmp['entry']=ls_row['entry']
         df_tmp['round']=ls_row['event']
         df_manager_history_picks = pd.concat([df_manager_history_picks, df_tmp], ignore_index=True)
-df_manager_history_picks.to_sql('df_manager_history_picks',engine,if_exists='replace')
+#df_manager_history_picks.to_sql('df_manager_history_picks',engine,if_exists='replace')
 
 # For each player and the round they played in - we need their points
 # This will be keyed by entry and event
@@ -107,7 +106,7 @@ for element in list_of_unique_players:
     else:
        df_tmp = json_normalize(json_manager_history_picks_players['history'])
        df_manager_history_picks_players = pd.concat([df_manager_history_picks_players, df_tmp], ignore_index=True )
-df_manager_history_picks_players.to_sql('df_manager_history_picks_players',engine,if_exists='replace')
+#df_manager_history_picks_players.to_sql('df_manager_history_picks_players',engine,if_exists='replace')
 
 # df_manager_history_with_name
 # THis is combo of entry details (name and things) and the history
@@ -132,7 +131,7 @@ df_manager_history_with_name.to_sql('df_manager_history_with_name',engine,if_exi
 # 'rank_sort', 'start_event', 'stop_event', 'total']
 df_tmp=pd.merge(df_manager_history_picks,df_manager_history_picks_players,on=['element','round'])
 df_manager_history_picks_with_names=pd.merge(df_tmp,df_league_standings,on='entry')
-df_manager_history_picks_with_names.to_sql('df_manager_history_picks_with_names',engine,if_exists='replace')
+#df_manager_history_picks_with_names.to_sql('df_manager_history_picks_with_names',engine,if_exists='replace')
 # Captains as above but just the captain picks and points doubled = should be tripled for TC chip!
 df_captains=(df_manager_history_picks_with_names[df_manager_history_picks_with_names.is_captain==True])
 # This merge tells us when the chips were played and factors in 3x chip for captain points.
