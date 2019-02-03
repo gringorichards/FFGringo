@@ -3,7 +3,8 @@ from django.http import HttpResponse
 import csv
 from matplotlib import pylab
 from pylab import *
-import PIL, PIL.Image, StringIO
+import PIL, PIL.Image
+from io import StringIO
 
 from .models import Greeting
 from .models import ManagerReports
