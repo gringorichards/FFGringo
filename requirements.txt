@@ -8,4 +8,4 @@ numpy
 requests
 sqlalchemy
 pillow
-stringio
+StringIO
