@@ -31,7 +31,7 @@ def manager_reports1(request):
     grid(True)
 
     # Store image in a string buffer
-    buffer = BytesIO.()
+    buffer = BytesIO()
     canvas = pylab.get_current_fig_manager().canvas
     canvas.draw()
     pilImage = PIL.Image.frombytes("RGB", canvas.get_width_height(), canvas.tostring_rgb())
