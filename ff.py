@@ -167,4 +167,4 @@ report_point_burner.plot(kind='barh',x='player_name', y='points_on_bench',legend
 ax1.set_title('Hit Burners\n',fontsize=20)
 ax1.set_ylabel('Manager',fontsize=14)
 ax1.set_xlabel('Points Burned',fontsize=14)
-plt.savefig('hello/static/point_burners.png')
+plt.savefig('/app/hello/static/point_burners.png')
