@@ -4,7 +4,7 @@ import csv
 from matplotlib import pylab
 from pylab import *
 import PIL, PIL.Image
-from io import StringIO
+from io import BytesIO
 
 from .models import Greeting
 from .models import ManagerReports
@@ -31,7 +31,7 @@ def manager_reports1(request):
     grid(True)
 
     # Store image in a string buffer
-    buffer = StringIO()
+    buffer = io.BytesIO ()
     canvas = pylab.get_current_fig_manager().canvas
     canvas.draw()
     pilImage = PIL.Image.frombytes("RGB", canvas.get_width_height(), canvas.tostring_rgb())
