@@ -32,9 +32,11 @@ df_elements.to_sql('df_elements',engine,if_exists='replace')
 # ['entry', 'entry_name', 'event_total', 'id', 'last_rank', 'league', 'movement', 'own_entry',
 # 'player_name', 'rank', 'rank_sort', 'start_event', 'stop_event', 'total']
 json_league_standings = json.loads(requests.get('https://fantasy.premierleague.com/drf/leagues-classic-standings/231600').text)
+# results is within standings
 df_league_standings = json_normalize(json_league_standings['standings'], 'results')
 df_league_standings.to_sql('df_league_standings',engine,if_exists='replace')
-
+df_league_details = json_normalize(json_league_standings['league'])
+df_league_details.to_sql('df_league_details',engine,if_exists='replace')
 # Now loop through league standings and concatenate a dataframe with entry history in
 # ['bank', 'entry', 'event', 'event_transfers', 'event_transfers_cost', 'id', 'movement', 'overall_rank',
 # 'points', 'points_on_bench', 'rank', 'rank_sort', 'total_points', 'value']
@@ -162,9 +164,8 @@ report_captain_points.to_sql('report_captain_points',engine,if_exists='replace')
 report_chips_played=df_manager_chips_names[['player_name','name','played_time_formatted','event']].sort_values(by='event')
 report_chips_played.to_sql('report_chips_played',engine,if_exists='replace')
 
-fig1,ax1 = plt.subplots(figsize=(10,5))
-report_point_burner.plot(kind='barh',x='player_name', y='points_on_bench',legend=False,ax=ax1)
-ax1.set_title('Hit Burners\n',fontsize=20)
-ax1.set_ylabel('Manager',fontsize=14)
-ax1.set_xlabel('Points Burned',fontsize=14)
-plt.savefig('/app/hello/static/point_burners.png')
+#report_point_burner.plot(kind='barh',x='player_name', y='points_on_bench',legend=False,ax=ax1)
+#ax1.set_title('Hit Burners\n',fontsize=20)
+#ax1.set_ylabel('Manager',fontsize=14)
+#ax1.set_xlabel('Points Burned',fontsize=14)
+#plt.savefig('/app/hello/static/point_burners.png')
