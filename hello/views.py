@@ -9,12 +9,14 @@ from io import BytesIO
 from .models import Greeting
 from .models import ManagerReports
 from .models import DfLeagueDetails
+from .models import DfLeagueStandings
 
 # Create your views here.
 def index(request):
-    league_name = DfLeagueDetails.objects.all()
-    context = {'league_name': league_name}
-    return render(request, "index.html", context)
+    league_list = DfLeagueDetails.objects.all()
+    league_standings_list = DfLeagueStandings.objects.all()
+    context = {'league_list': league_list, 'league_standings_list': league_standings_list}
+    return render(request, 'index.html', context)
 
 def reports(request):
     report_list = ManagerReports.objects.all()
