@@ -228,6 +228,29 @@ class DfElements(models.Model):
         db_table = 'df_elements'
 
 
+class DfLeagueDetails(models.Model):
+    index = models.BigIntegerField(blank=True, null=True)
+    field_scoring = models.TextField(db_column='_scoring', blank=True, null=True)  # Field renamed because it started with '_'.
+    admin_entry = models.BigIntegerField(blank=True, null=True)
+    closed = models.BooleanField(blank=True, null=True)
+    created = models.TextField(blank=True, null=True)
+    forum_disabled = models.BooleanField(blank=True, null=True)
+    id = models.BigIntegerField(blank=True, null=True)
+    league_type = models.TextField(blank=True, null=True)
+    leagueban_set = models.TextField(blank=True, null=True)
+    make_code_public = models.BooleanField(blank=True, null=True)
+    name = models.TextField(blank=True, null=True)
+    rank = models.TextField(blank=True, null=True)
+    reprocess_standings = models.BooleanField(blank=True, null=True)
+    short_name = models.TextField(blank=True, null=True)
+    size = models.TextField(blank=True, null=True)
+    start_event = models.BigIntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'df_league_details'
+
+
 class DfLeagueStandings(models.Model):
     index = models.BigIntegerField(blank=True, null=True)
     entry = models.BigIntegerField(blank=True, null=True)
@@ -291,6 +314,65 @@ class DfManagerChipsNames(models.Model):
     class Meta:
         managed = False
         db_table = 'df_manager_chips_names'
+
+
+class DfManagerHistory(models.Model):
+    index = models.BigIntegerField(blank=True, null=True)
+    bank = models.BigIntegerField(blank=True, null=True)
+    entry = models.BigIntegerField(blank=True, null=True)
+    event = models.BigIntegerField(blank=True, null=True)
+    event_transfers = models.BigIntegerField(blank=True, null=True)
+    event_transfers_cost = models.BigIntegerField(blank=True, null=True)
+    id = models.BigIntegerField(blank=True, null=True)
+    movement = models.TextField(blank=True, null=True)
+    overall_rank = models.BigIntegerField(blank=True, null=True)
+    points = models.BigIntegerField(blank=True, null=True)
+    points_on_bench = models.BigIntegerField(blank=True, null=True)
+    rank = models.BigIntegerField(blank=True, null=True)
+    rank_sort = models.BigIntegerField(blank=True, null=True)
+    targets = models.TextField(blank=True, null=True)
+    total_points = models.BigIntegerField(blank=True, null=True)
+    value = models.BigIntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'df_manager_history'
+
+
+class DfManagerHistoryWithName(models.Model):
+    index = models.BigIntegerField(blank=True, null=True)
+    bank = models.BigIntegerField(blank=True, null=True)
+    entry = models.BigIntegerField(blank=True, null=True)
+    event = models.BigIntegerField(blank=True, null=True)
+    event_transfers = models.BigIntegerField(blank=True, null=True)
+    event_transfers_cost = models.BigIntegerField(blank=True, null=True)
+    id_x = models.BigIntegerField(blank=True, null=True)
+    movement_x = models.TextField(blank=True, null=True)
+    overall_rank = models.BigIntegerField(blank=True, null=True)
+    points = models.BigIntegerField(blank=True, null=True)
+    points_on_bench = models.BigIntegerField(blank=True, null=True)
+    rank_x = models.BigIntegerField(blank=True, null=True)
+    rank_sort_x = models.BigIntegerField(blank=True, null=True)
+    targets = models.TextField(blank=True, null=True)
+    total_points = models.BigIntegerField(blank=True, null=True)
+    value = models.BigIntegerField(blank=True, null=True)
+    entry_name = models.TextField(blank=True, null=True)
+    event_total = models.BigIntegerField(blank=True, null=True)
+    id_y = models.BigIntegerField(blank=True, null=True)
+    last_rank = models.BigIntegerField(blank=True, null=True)
+    league = models.BigIntegerField(blank=True, null=True)
+    movement_y = models.TextField(blank=True, null=True)
+    own_entry = models.BooleanField(blank=True, null=True)
+    player_name = models.TextField(blank=True, null=True)
+    rank_y = models.BigIntegerField(blank=True, null=True)
+    rank_sort_y = models.BigIntegerField(blank=True, null=True)
+    start_event = models.BigIntegerField(blank=True, null=True)
+    stop_event = models.BigIntegerField(blank=True, null=True)
+    total = models.BigIntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'df_manager_history_with_name'
 
 
 class DjangoAdminLog(models.Model):
