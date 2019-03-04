@@ -28,7 +28,7 @@ class DfLeagueDetails(models.Model):
     closed = models.BooleanField(blank=True, null=True)
     created = models.TextField(blank=True, null=True)
     forum_disabled = models.BooleanField(blank=True, null=True)
-    id = models.BigIntegerField(blank=True, null=True)
+    id = models.BigIntegerField(blank=True, null=False, primary_key=True)
     league_type = models.TextField(blank=True, null=True)
     leagueban_set = models.TextField(blank=True, null=True)
     make_code_public = models.BooleanField(blank=True, null=True)
