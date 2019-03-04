@@ -8,11 +8,14 @@ from io import BytesIO
 
 from .models import Greeting
 from .models import ManagerReports
+from .models import DfLeagueDetails
 
 # Create your views here.
 def index(request):
     # return HttpResponse('Hello from Python!')
-    return render(request, "index.html")
+    league_name = DfLeagueDetails.objects.name
+    context = {'league_name': league_name}
+    return render(request, "index.html", context)
 
 def reports(request):
     report_list = ManagerReports.objects.all()
