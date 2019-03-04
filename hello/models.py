@@ -39,6 +39,9 @@ class DfLeagueDetails(models.Model):
     size = models.TextField(blank=True, null=True)
     start_event = models.BigIntegerField(blank=True, null=True)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         managed = False
         db_table = 'df_league_details'

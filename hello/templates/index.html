@@ -8,7 +8,17 @@
     <a href="/" class="lang-logo">
       <img src="{% static 'lang-logo.png'%}">
     </a>
-    <h1>Fantasy Football</h1>
+    <h1>Fantasy FootballX</h1>
+    <ul>
+      {% if league_details %}
+          <ul>
+          {% for league in league_details %}
+          <li>{{ league.name }}</li>
+          {% endfor %}
+          </ul>
+      {% else %}
+          <p>I could not get the league name I am so sad.</p>
+      {% endif %}
     <p>Some stuff.</p>
     <a type="button" class="btn btn-lg btn-default" href="https://devcenter.heroku.com/articles/getting-started-with-python"><span class="glyphicon glyphicon-flash"></span> Getting Started with Python</a>
     <a type="button" class="btn btn-lg btn-primary" href="https://github.com/heroku/python-getting-started"><span class="glyphicon glyphicon-download"></span> Source on GitHub</a>

@@ -12,8 +12,7 @@ from .models import DfLeagueDetails
 
 # Create your views here.
 def index(request):
-    # return HttpResponse('Hello from Python!')
-    league_name = DfLeagueDetails.objects.name
+    league_name = DfLeagueDetails.objects.all()
     context = {'league_name': league_name}
     return render(request, "index.html", context)
 
