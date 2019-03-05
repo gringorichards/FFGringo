@@ -22,10 +22,20 @@
           </body>
       </html>
 
+      {% load render_table from django_tables2 %}
+      <!doctype html>
+      <html>
+          <head>
+              <title>List of persons</title>
+          </head>
+          <body>
+              {% render_table league_list %}
+          </body>
+      </html>
 
    <p>Some stuff.</p>
-    <a type="button" class="btn btn-lg btn-default" href="https://devcenter.heroku.com/articles/getting-started-with-python"><span class="glyphicon glyphicon-flash"></span> Getting Started with Python</a>
-    <a type="button" class="btn btn-lg btn-primary" href="https://github.com/heroku/python-getting-started"><span class="glyphicon glyphicon-download"></span> Source on GitHub</a>
+    <a type="button" class="btn btn-lg btn-default" href="https://devcenter.heroku.com/articles/getting-started-with-python"><span class="glyphicon glyphicon-flash"></span>A thing</a>
+    <a type="button" class="btn btn-lg btn-primary" href="https://github.com/heroku/python-getting-started"><span class="glyphicon glyphicon-download"></span> Another thing</a>
   </div>
 </div>
 <div class="container">

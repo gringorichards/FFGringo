@@ -13,7 +13,7 @@ from .models import DfLeagueStandings
 
 # Create your views here.
 def index(request):
-    league_list = DfLeagueDetails.objects.all()
+    league_list = DfLeagueDetails.objects.values('name')
     league_standings_list = DfLeagueStandings.objects.all()
     context = {'league_list': league_list, 'league_standings_list': league_standings_list}
     return render(request, 'index.html', context)
