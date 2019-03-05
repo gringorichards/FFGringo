@@ -8,3 +8,4 @@ numpy
 requests
 sqlalchemy
 pillow
+django-tables2

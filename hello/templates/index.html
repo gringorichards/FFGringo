@@ -9,25 +9,38 @@
       <img src="{% static 'lang-logo.png'%}">
     </a>
     <ul>
-      {% if league_list %}
-          <ul>
-          {% for league in league_list %}
-          <h1>{{ league.name }}</h1>
-          {% endfor %}
-          </ul>
-      {% else %}
-          <p>I could not get the league name I am so sad.</p>
-      {% endif %}
 
-      {% if league_standings_list %}
-          <ul>
-          {% for league in league_standings_list %}
-          <p>{{ league.rank }} {{ league.entry_name }} {{ league.player_name }}</p>
-          {% endfor %}
-          </ul>
-      {% else %}
-          <p>I could not get the league standings I am so sad.</p>
-      {% endif %}
+      {# tutorial/templates/tutorial/people.html #}
+      {% load render_table from django_tables2 %}
+      <!doctype html>
+      <html>
+          <head>
+              <title>List of persons</title>
+          </head>
+          <body>
+              {% render_table league_standings_list %}
+          </body>
+      </html>
+
+
+#      {% if league_list %}
+#          <ul>
+#          {% for league in league_list %}
+#          <h1>{{ league.name }}</h1>
+#          </ul>
+#      {% else %}
+#          <p>I could not get the league name I am so sad.</p>
+#      {% endif %}
+
+#      {% if league_standings_list %}
+#          <ul>
+#          {% for league in league_standings_list %}
+#          <p>{{ league.rank }} {{ league.entry_name }} {{ league.player_name }}</p>
+#          {% endfor %}
+#          </ul>
+#      {% else %}
+#          <p>I could not get the league standings I am so sad.</p>
+#      {% endif %}
 
 
 
@@ -47,7 +60,7 @@
       <ul>
         <li>heroku pg:psql -a ffgringo - start a sql session on the server</li>
         <li>heroku run python ff.py -affgringo python manage.py inspectdb \> oof.txt/li>
-        <li>\dt - list tables; heroku ps -a ffgringo</li>
+        <li>\dt - list tables; heroku ps -a ffgringo heroku local web -f Procfile.windows</li>
       </ul>
     </div>
     <div class="col-md-6">
