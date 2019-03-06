@@ -10,3 +10,4 @@ sqlalchemy
 pillow
 django-tables2
 django-bootstrap4
+django-bootstrap-static
