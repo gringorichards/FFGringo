@@ -9,3 +9,4 @@ requests
 sqlalchemy
 pillow
 django-tables2
+django-bootstrap4

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div class="jumbotron text-center">
+  <div class="container">
+    <a href="/" class="lang-logo">
+      <img src="{% static 'lang-logo.png'%}">
+    </a>
+    <ul>
+
+      {# tutorial/templates/tutorial/people.html #}
+      {% load render_table from django_tables2 %}
+      <!doctype html>
+      <html>
+          <head>
+              <title>List of persons</title>
+          </head>
+          <body>
+              {% render_table league_standings_list %}
+          </body>
+      </html>
+
+      {% load render_table from django_tables2 %}
+      <!doctype html>
+      <html>
+          <head>
+              <title>List of persons</title>
+          </head>
+          <body>
+              {% render_table league_list %}
+          </body>
+      </html>
+
+   <p>Some stuff.</p>
+    <a type="button" class="btn btn-lg btn-default" href="https://devcenter.heroku.com/articles/getting-started-with-python"><span class="glyphicon glyphicon-flash"></span>A thing</a>
+    <a type="button" class="btn btn-lg btn-primary" href="https://github.com/heroku/python-getting-started"><span class="glyphicon glyphicon-download"></span> Another thing</a>
+  </div>
+</div>
+<div class="container">
+  <div class="alert alert-info text-center" role="alert">
+    To deploy your own copy, and learn the fundamentals of the Heroku platform, head over to the <a href="https://devcenter.heroku.com/articles/getting-started-with-python" class="alert-link">Getting Started with Python on Heroku</a> tutorial.
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-6">
+      <h3><span class="glyphicon glyphicon-info-sign"></span> Some useful commands</h3>
+      <ul>
+        <li>heroku pg:psql -a ffgringo - start a sql session on the server</li>
+        <li>heroku run python ff.py -affgringo python manage.py inspectdb \> oof.txt/li>
+        <li>\dt - list tables; heroku ps -a ffgringo heroku local web -f Procfile.windows</li>
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <h3><span class="glyphicon glyphicon-link"></span> To-do</h3>
+      <ul>
+        <li>Run build script on heroku to a schedule<li>
+        <li>Turn list of participants into a table<li>
+          <li>Manager of the week<li>
+       </ul>
+      <h3><span class="glyphicon glyphicon-link"></span> Helpful Links</h3>
+      <ul>
+        <li><a href="https://www.heroku.com/home">Heroku</a></li>
+        <li><a href="https://devcenter.heroku.com/">Heroku Dev Center</a></li>
+        <li><a href="https://devcenter.heroku.com/articles/getting-started-with-python">Getting Started with Python on Heroku</a></li>
+        <li><a href="https://devcenter.heroku.com/articles/django-app-configuration">Configuring Django Apps for Heroku</a></li>
+      </ul>
+    </div>
+  </div> <!-- row -->
+   <div class="alert alert-info text-center" role="alert">
+    Please do work through the Getting Started guide, even if you do know how to build such an application.  The guide covers the basics of working with Heroku, and will familiarize you with all the concepts you need in order to build and deploy your own apps.
+  </div>
+</div>
+{% endblock %}
