@@ -169,3 +169,5 @@ report_chips_played.to_sql('report_chips_played',engine,if_exists='replace')
 #ax1.set_ylabel('Manager',fontsize=14)
 #ax1.set_xlabel('Points Burned',fontsize=14)
 #plt.savefig('/app/hello/static/point_burners.png')
+
+# Run some SQL?
