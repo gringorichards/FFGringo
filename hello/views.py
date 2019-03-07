@@ -10,17 +10,21 @@ from .models import Greeting
 from .models import ManagerReports
 from .models import DfLeagueDetails
 from .models import DfLeagueStandings
+from django.db.models import Max
+
 
 # Create your views here.
 def index(request):
     league_list = DfLeagueDetails.objects.values('name')
     league_standings_list = DfLeagueStandings.objects.all()
-    manager_of_the_week_list = DfLeagueStandings.objects.latest()
+    max_event_total = DfLeagueStandings.objects.all().aggregate(Max('event_total'))
+    manager_of_the_week_list =  DfLeagueStandings.objects.filter(event_total=(max_event_total['event_total__max']))
     context = {'league_list': league_list, 'league_standings_list': league_standings_list,'manager_of_the_week_list': manager_of_the_week_list}
     return render(request, 'index.html', context)
 
 def manager_of_the_week(request):
-    manager_of_the_week_list = DfLeagueStandings.objects.latest()
+    max_event_total = DfLeagueStandings.objects.all().aggregate(Max('event_total'))
+    manager_of_the_week_list =  DfLeagueStandings.objects.filter(event_total=(max_event_total['event_total__max']))
     context = {'manager_of_the_week_list': manager_of_the_week_list}
     return render(request, 'manager_of_the_week.html', context)
 

@@ -70,7 +70,7 @@
             <div class="container">
               <div class="carousel-caption text-left">
                 <h1>Manager of the week</h1>
-                <p>Congratulations to {{manager_of_the_week_list.player_name}}! </p>
+                <p>Congratulations to the manager of the week: {% for manager in manager_of_the_week_list %} {{ manager.player_name }} {% endfor %}! </p>
                 <p><a class="btn btn-lg btn-primary" href="manager_of_the_week" role="button">See how they did it</a></p>
               </div>
             </div>
