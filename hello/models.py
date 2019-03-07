@@ -67,3 +67,4 @@ class DfLeagueStandings(models.Model):
     class Meta:
         managed = False
         db_table = 'df_league_standings'
+        get_latest_by = 'event_total'

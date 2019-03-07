@@ -15,13 +15,19 @@ from .models import DfLeagueStandings
 def index(request):
     league_list = DfLeagueDetails.objects.values('name')
     league_standings_list = DfLeagueStandings.objects.all()
-    context = {'league_list': league_list, 'league_standings_list': league_standings_list}
+    manager_of_the_week_list = DfLeagueStandings.objects.latest()
+    context = {'league_list': league_list, 'league_standings_list': league_standings_list,'manager_of_the_week_list': manager_of_the_week_list}
     return render(request, 'index.html', context)
+
+def manager_of_the_week(request):
+    manager_of_the_week_list = DfLeagueStandings.objects.latest()
+    context = {'manager_of_the_week_list': manager_of_the_week_list}
+    return render(request, 'manager_of_the_week.html', context)
 
 def reports(request):
     report_list = ManagerReports.objects.all()
     context = {'report_list': report_list}
-    return render(request, 'reports.html', context)
+    return render(request, 'manager_of_the_week.html', context)
 
 def manager_reports1(request):
     # Construct the graph
