@@ -22,14 +22,13 @@ def index(request,league_id):
     print (league_id)
     # Here goes!
     json_league_standings = json.loads(requests.get('https://fantasy.premierleague.com/drf/leagues-classic-standings/'+ str(league_id)).text)
-    manager_of_the_week_list=(json_league_standings['league']['name'])
-    print (manager_of_the_week_list)
+    league_name=(json_league_standings['league']['name'])
     #manager_of_the_week_list =print (df_league_details)
     #league_list = DfLeagueDetails.objects.values('name')
     #league_standings_list = DfLeagueStandings.objects.all()
     #max_event_total = DfLeagueStandings.objects.all().aggregate(Max('event_total'))
     #manager_of_the_week_list =  DfLeagueStandings.objects.filter(event_total=(max_event_total['event_total__max']))
-    context = {'manager_of_the_week_list': manager_of_the_week_list}
+    context = {'league_name': league_name}
     return render(request, 'index.html', context)
 
 def manager_of_the_week(request):
