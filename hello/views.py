@@ -12,24 +12,28 @@ from io import BytesIO
 from .models import Greeting
 from .models import ManagerReports
 from .models import DfLeagueDetails
+from .models import DfEvents
 from .models import DfLeagueStandings
 from django.db.models import Max
 
 
 # Create your views here.
 def index(request,league_id):
-    print ("HI THERE")
-    print (league_id)
     # Here goes!
     json_league_standings = json.loads(requests.get('https://fantasy.premierleague.com/drf/leagues-classic-standings/'+ str(league_id)).text)
+    # league_name used in title
     league_name=(json_league_standings['league']['name'])
-    json_bootstrap = json.loads(requests.get('https://fantasy.premierleague.com/drf/bootstrap').text)
-    #manager_of_the_week_list =print (df_league_details)
-    #league_list = DfLeagueDetails.objects.values('name')
-    #league_standings_list = DfLeagueStandings.objects.all()
-    #max_event_total = DfLeagueStandings.objects.all().aggregate(Max('event_total'))
-    #manager_of_the_week_list =  DfLeagueStandings.objects.filter(event_total=(max_event_total['event_total__max']))
-    context = {'league_name': league_name}
+    # Latest gameweek
+    current_gameweek =  DfEvents.objects.get(is_current=True)
+    # Manager of the week!
+    list_of_managers_and_scores=(json_league_standings['standings']['results'])
+    #print (list_of_managers_and_scores)
+    print (type(list_of_managers_and_scores))
+    dict_manager_of_the_week = max(list_of_managers_and_scores, key=lambda x:x['event_total'])
+    manager_of_the_week=dict_manager_of_the_week.get('player_name')
+    # Change this to return a list using filter by max id - sorted
+
+    context = {'league_name': league_name, 'current_gameweek': current_gameweek, 'manager_of_the_week' : manager_of_the_week }
     return render(request, 'index.html', context)
 
 def manager_of_the_week(request):

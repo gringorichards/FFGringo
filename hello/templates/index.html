@@ -70,7 +70,7 @@
             <div class="container">
               <div class="carousel-caption text-left">
                 <h1>Manager of the week</h1>
-                <p>Congratulations to the manager of the week: {% for manager in manager_of_the_week_list %} {{ manager.player_name }} {% endfor %}! </p>
+                <p>Congratulations to the manager of the week: {{manager_of_the_week}} {% for manager in manager_of_the_week_list %} {{ manager.player_name }} {% endfor %}! </p>
                 <p><a class="btn btn-lg btn-primary" href="manager_of_the_week" role="button">See how they did it</a></p>
               </div>
             </div>
@@ -79,7 +79,7 @@
             <img class="second-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Second slide">
             <div class="container">
               <div class="carousel-caption">
-                <h1>Gameweek Latest</h1>
+                <h1>{{current_gameweek}}</h1>
                 <p>Gameweek start Gameweek finish Date MI updated</p>
                 <p><a class="btn btn-lg btn-primary" href="#" role="button"></a></p>
               </div>

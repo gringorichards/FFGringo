@@ -13,7 +13,11 @@ import pandas as pd
 import os
 DATABASE_URL = os.environ['DATABASE_URL']
 engine = create_engine(DATABASE_URL)
+import datetime
+now = datetime.datetime.now()
 
+print("I be starting")
+print (now.strftime("%Y-%m-%d %H:%M"))
 # Kick off by grabbing the bootstrap data - gameweek & player details are in here
 # ['assists', 'bonus', 'bps', 'chance_of_playing_next_round', 'chance_of_playing_this_round', 'clean_sheets',
 #'code', 'cost_change_event', 'cost_change_event_fall', 'cost_change_start', 'cost_change_start_fall',
@@ -26,6 +30,8 @@ engine = create_engine(DATABASE_URL)
 json_bootstrap = json.loads(requests.get('https://fantasy.premierleague.com/drf/bootstrap').text)
 df_elements = json_normalize(json_bootstrap['elements'])
 latest_gameweek= json_bootstrap['current-event']
+df_events = json_normalize(json_bootstrap['events'])
+df_events.to_sql('df_events',engine,if_exists='replace')
 df_elements.to_sql('df_elements',engine,if_exists='replace')
 
 # Then get the league data
@@ -63,7 +69,7 @@ for ls_index,ls_row in (df_league_standings.iterrows()):
         df_manager_chips = pd.concat([df_manager_chips, df_tmp], ignore_index=True)
 df_manager_history.to_sql('df_manager_history',engine,if_exists='replace')
 df_manager_chips.to_sql('df_manager_chips',engine,if_exists='replace')
-
+print (now.strftime("%Y-%m-%d %H:%M"))
 # We can use the last loop to set up the player picks for each week
 # element  is_captain  is_vice_captain  multiplier  position   Entry  round
 df_manager_history_picks = pd.DataFrame()
@@ -86,7 +92,8 @@ for ls_index,ls_row in (df_manager_history.iterrows()):
         df_tmp['round']=ls_row['event']
         df_manager_history_picks = pd.concat([df_manager_history_picks, df_tmp], ignore_index=True)
 #df_manager_history_picks.to_sql('df_manager_history_picks',engine,if_exists='replace')
-
+now = datetime.datetime.now()
+print (now.strftime("%Y-%m-%d %H:%M"))
 # For each player and the round they played in - we need their points
 # This will be keyed by entry and event
 # Avoind picking up the player and gameweek more than once - no nned for that
@@ -109,7 +116,8 @@ for element in list_of_unique_players:
        df_tmp = json_normalize(json_manager_history_picks_players['history'])
        df_manager_history_picks_players = pd.concat([df_manager_history_picks_players, df_tmp], ignore_index=True )
 #df_manager_history_picks_players.to_sql('df_manager_history_picks_players',engine,if_exists='replace')
-
+now = datetime.datetime.now()
+print (now.strftime("%Y-%m-%d %H:%M"))
 # df_manager_history_with_name
 # THis is combo of entry details (name and things) and the history
 #['bank', 'entry', 'event', 'event_transfers', 'event_transfers_cost', 'id_x', 'movement_x',
@@ -141,7 +149,8 @@ df_captains = pd.merge(df_captains,df_manager_chips,left_on=['entry','round'],ri
 df_captains['total_captain_point_multiplier'] = np.where(df_captains['name']=='3xc',3,2)
 df_captains['total_captain_points'] = np.where(1==1,df_captains['total_points'] * df_captains['total_captain_point_multiplier'],9999)
 df_captains.to_sql('df_captains',engine,if_exists='replace')
-
+now = datetime.datetime.now()
+print (now.strftime("%Y-%m-%d %H:%M"))
 #['chip', 'entry', 'event', 'name', 'played_time_formatted', 'status', 'time',
 #'entry_name', 'event_total', 'id', 'last_rank', 'league',
 #'movement', 'own_entry', 'player_name', 'rank', 'rank_sort', 'start_event', 'stop_event', 'total']

@@ -1,6 +1,7 @@
 from django.db import models
 import django_tables2 as tables
 
+
 # Create your models here.
 class Greeting(models.Model):
     when = models.DateTimeField("date created", auto_now_add=True)
@@ -68,3 +69,27 @@ class DfLeagueStandings(models.Model):
         managed = False
         db_table = 'df_league_standings'
         get_latest_by = 'event_total'
+
+class DfEvents(models.Model):
+    index = models.BigIntegerField(blank=True, null=True)
+    average_entry_score = models.BigIntegerField(blank=True, null=True)
+    data_checked = models.BooleanField(blank=True, null=True)
+    deadline_time = models.TextField(blank=True, null=True)
+    deadline_time_epoch = models.BigIntegerField(blank=True, null=True)
+    deadline_time_formatted = models.TextField(blank=True, null=True)
+    deadline_time_game_offset = models.BigIntegerField(blank=True, null=True)
+    finished = models.BooleanField(blank=True, null=True)
+    highest_score = models.FloatField(blank=True, null=True)
+    highest_scoring_entry = models.FloatField(blank=True, null=True)
+    id = models.BigIntegerField(blank=True, null=False,primary_key=True)
+    is_current = models.BooleanField(blank=True, null=True)
+    is_next = models.BooleanField(blank=True, null=True)
+    is_previous = models.BooleanField(blank=True, null=True)
+    name = models.TextField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'df_events'
+
+    def __str__(self):
+        return (self.name)
