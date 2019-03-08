@@ -15,7 +15,7 @@ import hello.views
 # Learn more here: https://docs.djangoproject.com/en/2.1/topics/http/urls/
 
 urlpatterns = [
-    path("", hello.views.index, name="index"),
+    path("<int:league_id>/", hello.views.index, name="index"),
     path("db/", hello.views.db, name="db"),
     path("reports/manager_reports/1/", hello.views.manager_reports1, name="manager_reports1"),
     path("reports/manager_reports/1/", hello.views.manager_reports1, name="manager_reports1"),
