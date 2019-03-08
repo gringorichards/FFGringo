@@ -23,6 +23,7 @@ def index(request,league_id):
     # Here goes!
     json_league_standings = json.loads(requests.get('https://fantasy.premierleague.com/drf/leagues-classic-standings/'+ str(league_id)).text)
     league_name=(json_league_standings['league']['name'])
+    json_bootstrap = json.loads(requests.get('https://fantasy.premierleague.com/drf/bootstrap').text)
     #manager_of_the_week_list =print (df_league_details)
     #league_list = DfLeagueDetails.objects.values('name')
     #league_standings_list = DfLeagueStandings.objects.all()
