@@ -26,7 +26,6 @@ def index(request,league_id=231600):
     league_name=(json_league_standings['league']['name'])
     # Latest gameweek
     list_current_gw=list(filter(lambda gw: gw['is_current'] == True, json_current_gw))
-
     # Manager of the week!
     list_of_managers_and_scores=(json_league_standings['standings']['results'])
     #print (list_of_managers_and_scores)
