@@ -18,7 +18,7 @@ from django.db.models import Max
 
 
 # Create your views here.
-def index(request,league_id=231600):
+def index(request,my_id=1):
     # Here goes!
     json_league_standings = json.loads(requests.get('https://fantasy.premierleague.com/drf/leagues-classic-standings/'+ str(league_id)).text)
     # league_name used in title
