@@ -69,8 +69,8 @@
             <img class="first-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="First slide">
             <div class="container">
               <div class="carousel-caption text-left">
-                <h1>Manager of the week</h1>
-                <p>Congratulations to the manager of the week: {{manager_of_the_week}} {% for manager in manager_of_the_week_list %} {{ manager.player_name }} {% endfor %}! </p>
+                <h1>{{dict_manager_of_the_week.player_name}} wins Manager of the Week</h1>
+                <p>With {{dict_manager_of_the_week.event_total}} points, {{dict_manager_of_the_week.entry_name}} have won their manager {{dict_manager_of_the_week.player_name}} the manager of the week title for {{current_gameweek}}</p>
                 <p><a class="btn btn-lg btn-primary" href="manager_of_the_week" role="button">See how they did it</a></p>
               </div>
             </div>

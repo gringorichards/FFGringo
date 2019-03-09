@@ -30,10 +30,9 @@ def index(request,league_id=231600):
     #print (list_of_managers_and_scores)
     print (type(list_of_managers_and_scores))
     dict_manager_of_the_week = max(list_of_managers_and_scores, key=lambda x:x['event_total'])
-    manager_of_the_week=dict_manager_of_the_week.get('player_name')
     # Change this to return a list using filter by max id - sorted
 
-    context = {'league_name': league_name, 'current_gameweek': current_gameweek, 'manager_of_the_week' : manager_of_the_week }
+    context = {'league_name': league_name, 'current_gameweek': current_gameweek, 'dict_manager_of_the_week' : dict_manager_of_the_week }
     return render(request, 'index.html', context)
 
 def manager_of_the_week(request):
