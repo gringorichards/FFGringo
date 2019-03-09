@@ -69,9 +69,12 @@
             <img class="first-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="First slide">
             <div class="container">
               <div class="carousel-caption text-left">
-                <h1>{{current_gameweek}}</h1>
-                <p>Gameweek start Gameweek finish Date MI updated</p>
-                <p><a class="btn btn-lg btn-primary" href="manager_of_the_week" role="button">See how they did it</a></p>
+                <h1>{{dict_current_gw.name}}
+                    {% if dict_current_gw.finished is False %}
+                   is in play right now! Check back here when it's finished for your GW update!
+                    {% endif %} </h1>
+                <p>{% if dict_current_gw.finished is False %}Why not check out some of the other features on this site while you wait...{% endif %}</p>
+                <p><a class="btn btn-lg btn-primary" href="manager_of_the_week" role="button">{{dict_current_gw.name}}</a></p>
               </div>
             </div>
           </div>
