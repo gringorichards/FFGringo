@@ -79,22 +79,16 @@
   <thead>
     <tr>
       <th scope="col">Rank</th>
-      <th scope="col">Movement</th>
       <th scope="col">Player Name</th>
-      <th scope="col">Entry Name</th>
       <th scope="col">Event Total</th>
-      <th scope="col">Total</th>
     </tr>
   </thead>
   <tbody>
       {% for list in live_leaders %}
           <tr>
               <td>{{list.rank}}</td>
-              <td>{{list.movement}}</td>
               <td>{{list.player_name}}</td>
-              <td>{{list.entry_name}}</td>
               <td>{{list.event_total}}</td>
-              <td>{{list.total}}</td>
           </tr>
       {% endfor %}
   </tbody>
