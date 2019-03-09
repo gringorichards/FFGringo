@@ -32,7 +32,7 @@
 
     <header>
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="#"> {{league_name}} Mini League Stats </a>
+        <a class="navbar-brand" href="#"> {{league_name}}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -69,8 +69,8 @@
             <img class="first-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="First slide">
             <div class="container">
               <div class="carousel-caption text-left">
-                <h1>{{dict_manager_of_the_week.player_name}} wins Manager of the Week</h1>
-                <p>With {{dict_manager_of_the_week.event_total}} points, {{dict_manager_of_the_week.entry_name}} have won their manager {{dict_manager_of_the_week.player_name}} the manager of the week title for {{current_gameweek}}</p>
+                <h1>{{current_gameweek}}</h1>
+                <p>Gameweek start Gameweek finish Date MI updated</p>
                 <p><a class="btn btn-lg btn-primary" href="manager_of_the_week" role="button">See how they did it</a></p>
               </div>
             </div>
@@ -79,8 +79,8 @@
             <img class="second-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Second slide">
             <div class="container">
               <div class="carousel-caption">
-                <h1>{{current_gameweek}}</h1>
-                <p>Gameweek start Gameweek finish Date MI updated</p>
+                <h1>{{dict_manager_of_the_week.player_name}} wins Manager of the Week</h1>
+                <p>With {{dict_manager_of_the_week.event_total}} points, {{dict_manager_of_the_week.entry_name}} have won their manager {{dict_manager_of_the_week.player_name}} the manager of the week title for {{current_gameweek}}</p>
                 <p><a class="btn btn-lg btn-primary" href="#" role="button"></a></p>
               </div>
             </div>

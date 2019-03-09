@@ -16,6 +16,7 @@ import hello.views
 
 urlpatterns = [
     path("<int:league_id>/", hello.views.index, name="index"),
+    path("", hello.views.index, name="index"),
     path("db/", hello.views.db, name="db"),
     path("reports/manager_reports/1/", hello.views.manager_reports1, name="manager_reports1"),
     path("reports/manager_reports/1/", hello.views.manager_reports1, name="manager_reports1"),
