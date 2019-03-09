@@ -20,7 +20,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
 
-    <title>{{league_name}} Mini League Stats</title>
+    <title>{{league_name}}</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{% static 'bootstrap.min.css'%}" rel="stylesheet">
@@ -69,8 +69,8 @@
             <img class="first-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="First slide">
             <div class="container">
               <div class="carousel-caption text-left">
-                <h1>Manager of the week</h1>
-                <p>Congratulations to the manager of the week: {{manager_of_the_week}} {% for manager in manager_of_the_week_list %} {{ manager.player_name }} {% endfor %}! </p>
+                <h1>{{manager_of_the_week}} named "Manager of the Week".</h1>
+                <p>Coming in with x points against a game wide average of x points and a mini league average of x points, team name takes {{current_gameweek}}'s title.</p>
                 <p><a class="btn btn-lg btn-primary" href="manager_of_the_week" role="button">See how they did it</a></p>
               </div>
             </div>
@@ -89,7 +89,7 @@
             <img class="third-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Third slide">
             <div class="container">
               <div class="carousel-caption text-right">
-                <h1>One more for good measure.</h1>
+                <h1{% for manager in manager_of_the_week_list %} {{ manager.player_name }} {% endfor %}</h1>
                 <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
                 <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
               </div>

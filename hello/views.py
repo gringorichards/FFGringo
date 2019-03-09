@@ -28,7 +28,6 @@ def index(request,league_id=231600):
     # Manager of the week!
     list_of_managers_and_scores=(json_league_standings['standings']['results'])
     #print (list_of_managers_and_scores)
-    print (type(list_of_managers_and_scores))
     dict_manager_of_the_week = max(list_of_managers_and_scores, key=lambda x:x['event_total'])
     manager_of_the_week=dict_manager_of_the_week.get('player_name')
     # Change this to return a list using filter by max id - sorted
