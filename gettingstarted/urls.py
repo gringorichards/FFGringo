@@ -17,13 +17,5 @@ import hello.views
 urlpatterns = [
     path("<int:league_id>/", hello.views.index, name="index"),
     path("", hello.views.index, name="index"),
-    path("db/", hello.views.db, name="db"),
-    path("reports/manager_reports/1/", hello.views.manager_reports1, name="manager_reports1"),
-    path("reports/manager_reports/1/", hello.views.manager_reports1, name="manager_reports1"),
-    path("reports/manager_reports/2/", hello.views.manager_reports2, name="manager_reports2"),
-    path("reports/manager_reports/3/", hello.views.manager_reports3, name="manager_reports3"),
-    path("reports/manager_reports/4/", hello.views.manager_reports4, name="manager_reports4"),
-    path("manager_of_the_week/", hello.views.manager_of_the_week, name="manager_of_the_week"),
-    path("reports/", hello.views.reports, name="reports"),
     path("admin/", admin.site.urls),
 ]
