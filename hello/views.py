@@ -21,4 +21,10 @@ def index(request,league_id=231600):
     list_live_leaders=sorted(list_of_managers_and_scores, key = lambda i: i['event_total'],reverse=True)
     live_leaders=[x for _, x in zip(range(5), list_live_leaders)]
     context = {'league_name': league_name, 'dict_current_gw': list_current_gw[0], 'dict_manager_of_the_week' : dict_manager_of_the_week, 'live_leaders' : live_leaders }
+
+    # See how long it takes to get all the
+    for entry in list_of_managers_and_scores:
+        print (entry['entry'])
+        json_entry_details=json.loads(requests.get('https://fantasy.premierleague.com/drf/entry/'+ str(entry['entry'])).text)
+        
     return render(request, 'index.html', context)
