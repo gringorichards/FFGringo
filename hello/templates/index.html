@@ -84,11 +84,11 @@
     </tr>
   </thead>
   <tbody>
-      {% for list in live_leaders %}
+      {% for live_leader in live_leaders %}
           <tr>
-              <td>{{list.rank}}</td>
-              <td>{{list.player_name}}</td>
-              <td>{{list.event_total}}</td>
+              <td>{{live_leader.rank}}</td>
+              <td>{{live_leader.player_name}}</td>
+              <td>{{live_leader.event_total}}</td>
           </tr>
       {% endfor %}
   </tbody>

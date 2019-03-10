@@ -17,6 +17,9 @@ def index(request,league_id=231600):
     #print (list_of_managers_and_scores)
     dict_manager_of_the_week = max(list_of_managers_and_scores, key=lambda x:x['event_total'])
     # Change this to return a list using filter by max id - sorted
-    live_leaders=list(filter(lambda gw: gw['rank'] <=5 , list_of_managers_and_scores))
+    #live_leaders=list(filter(lambda gw: gw['rank'] <=5 , list_of_managers_and_scores))
+    live_leaders=sorted(list_of_managers_and_scores, key = lambda i: i['event_total'],reverse=True)
+    ll=[x for _, x in zip(range(5), live_leaders)]
+    live_leaders=ll
     context = {'league_name': league_name, 'dict_current_gw': list_current_gw[0], 'dict_manager_of_the_week' : dict_manager_of_the_week, 'live_leaders' : live_leaders }
     return render(request, 'index.html', context)
