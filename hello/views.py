@@ -26,5 +26,5 @@ def index(request,league_id=231600):
     for entry in list_of_managers_and_scores:
         print (entry['entry'])
         json_entry_details=json.loads(requests.get('https://fantasy.premierleague.com/drf/entry/'+ str(entry['entry'])).text)
-        
+
     return render(request, 'index.html', context)
