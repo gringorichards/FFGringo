@@ -3,6 +3,10 @@ from django.http import HttpResponse
 import json
 import requests
 
+#def function get_current_gw_details:
+#    json_current_gw=json.loads(requests.get('https://fantasy.premierleague.com/drf/events/').text)
+#    list_current_gw=list(filter(lambda gw: gw['is_current'] == True, json_current_gw))
+#    return (list_current_gw)
 # Create your views here.
 def index(request,league_id=231600):
     # Here goes!
@@ -20,11 +24,40 @@ def index(request,league_id=231600):
     #live_leaders=list(filter(lambda gw: gw['rank'] <=5 , list_of_managers_and_scores))
     list_live_leaders=sorted(list_of_managers_and_scores, key = lambda i: i['event_total'],reverse=True)
     live_leaders=[x for _, x in zip(range(5), list_live_leaders)]
-    context = {'league_name': league_name, 'dict_current_gw': list_current_gw[0], 'dict_manager_of_the_week' : dict_manager_of_the_week, 'live_leaders' : live_leaders }
 
-    # See how long it takes to get all the
+    # Create a list of dictionary data that we are interested in
+    # You could move this into a function
+    # And create a function that gives top n
+    list_of_dictionaries_mgr_summary = []
     for entry in list_of_managers_and_scores:
-        print (entry['entry'])
-        json_entry_details=json.loads(requests.get('https://fantasy.premierleague.com/drf/entry/'+ str(entry['entry'])).text)
+        temp_dict={}
+        gw_id=(list_current_gw[0]['id'])
+        temp_list=json.loads(requests.get('https://fantasy.premierleague.com/drf/entry/'+ str(entry['entry']) + '/event/' + str(gw_id) + '/picks').text)
+        temp_dict = {'entry_id':entry, \
+                    'active_chip':temp_list['active_chip'], \
+                    'points':temp_list['entry_history']['points'], \
+                    'overall_total_points':temp_list['entry_history']['total_points'], \
+                    'event_transfers':temp_list['entry_history']['event_transfers'], \
+                    'event_transfers_cost':temp_list['entry_history']['event_transfers_cost'], \
+                    'value':temp_list['entry_history']['value'], \
+                    'points_on_bench':temp_list['entry_history']['points_on_bench'], \
+                    'bank':temp_list['entry_history']['bank']}
+        temp_dict['rank']=entry['rank']
+        temp_dict['last_rank']=entry['last_rank']
+        temp_dict['movement']=entry['movement']
+        temp_dict['rank_sort']=entry['rank_sort']
+        temp_dict['adjusted_points']=temp_dict['points']-temp_dict['event_transfers_cost']
+        temp_dict['mini_league_movement']=entry['movement']
+        temp_dict['player_name']=entry['player_name']
+        temp_dict['entry_name']=entry['entry_name']
+        # Add dictionary to list
+        list_of_dictionaries_mgr_summary.append(temp_dict)
+        list_live_leaders=sorted(list_of_dictionaries_mgr_summary, key = lambda i: i['adjusted_points'],reverse=True)
+        live_leaders=[x for _, x in zip(range(5), list_live_leaders)]
+
+    context = {'league_name': league_name, \
+                'dict_current_gw': list_current_gw[0], \
+                'dict_manager_of_the_week' : dict_manager_of_the_week, \
+                'live_leaders' : live_leaders,}
 
     return render(request, 'index.html', context)

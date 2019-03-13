@@ -78,17 +78,19 @@
 <table class="table table-striped table-dark table-sm">
   <thead>
     <tr>
-      <th scope="col">Rank</th>
-      <th scope="col">Player Name</th>
-      <th scope="col">Event Total</th>
+      <th scope="col">Manager</th>
+      <th scope="col">Points</th>
+      <th scope="col">Hits</th>
+      <th scope="col">Real Points</th>
     </tr>
   </thead>
   <tbody>
       {% for live_leader in live_leaders %}
           <tr>
-              <td>{{live_leader.rank}}</td>
               <td>{{live_leader.player_name}}</td>
-              <td>{{live_leader.event_total}}</td>
+              <td>{{live_leader.points}}</td>
+              <td>{{live_leader.event_transfers_cost}}</td>
+              <td>{{live_leader.adjusted_points}}</td>
           </tr>
       {% endfor %}
   </tbody>
