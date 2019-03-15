@@ -32,8 +32,8 @@
 
     <header>
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="#">{{dict_current_gw.name}} Status:
-            {% if dict_current_gw.finished is False %} IN PLAY
+        <a class="navbar-brand" href="#">{{list_current_gw.name}} Status:
+            {% if list_current_gw.finished is False %} IN PLAY
             {% else %} COMPLETE
             {% endif %} </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -72,7 +72,7 @@
             <img class="first-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="First slide">
             <div class="container">
               <div class="carousel-caption text-left">
-                <h1>{{dict_current_gw.name}} Live Leaders</h1>
+                <h1>{{list_current_gw.name}} Live Leaders</h1>
                 <p><table class="table-striped table-dark">
 
 <table class="table table-striped table-dark table-sm">
@@ -103,11 +103,11 @@
             <img class="second-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Second slide">
             <div class="container">
               <div class="carousel-caption">
-                    {% if dict_current_gw.finished is False %}
+                    {% if list_current_gw.finished is False %}
                     <h1>Manager of the Week will update after the current game week is finished.</h1>
                     <p>Come back later</p>
                     {% else %}
-                    <h1>{{dict_manager_of_the_week.player_name}} wins Manager of the Week.</h1>
+                    <h1>{{live_leaders.player_name}} wins Manager of the Week.</h1>
                     <p>With {{dict_manager_of_the_week.event_total}} points, team{{dict_manager_of_the_week.entry_name}} have won their manager {{dict_manager_of_the_week.player_name}} the manager of the week title for {{current_gameweek}}</p>
                     <p><a class="btn btn-lg btn-primary" href="#" role="button"></a></p>
                     {% endif %}
