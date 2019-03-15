@@ -6,15 +6,17 @@ import requests
 # https://fantasy.premierleague.com/drf/events/
 def get_current_events_details():
     # ZZZ must be a quicker way to do this..
-    print('https://fantasy.premierleague.com/drf/events/')
+    #print('https://fantasy.premierleague.com/drf/events/')
     json_current_gw=json.loads(requests.get('https://fantasy.premierleague.com/drf/events/').text)
     list_current_gw=list(filter(lambda gw: gw['is_current'] == True, json_current_gw))
     gw_id=list_current_gw[0]['id']
-    return (list_current_gw,gw_id)
+    gw_name=list_current_gw[0]['name']
+    gw_finished=list_current_gw[0]['finished']
+    return (list_current_gw,gw_id,gw_name,gw_finished)
 
 # https://fantasy.premierleague.com/drf/leagues-classic-standings/league_id
 def get_league_classic_standings(league_id):
-    print('https://fantasy.premierleague.com/drf/leagues-classic-standings/'+ str(league_id))
+    #print('https://fantasy.premierleague.com/drf/leagues-classic-standings/'+ str(league_id))
     json_league_standings=json.loads(requests.get('https://fantasy.premierleague.com/drf/leagues-classic-standings/'+ str(league_id)).text)
     list_classic_standings=(json_league_standings['standings']['results'])
     league_name=(json_league_standings['league']['name'])
@@ -24,9 +26,7 @@ def get_league_classic_standings(league_id):
 def get_entry_gw_picks(list_classic_standings, gw_id):
     list_entry_gw_picks = []
     for entry in list_classic_standings:
-        print (entry['entry'])
-        print (gw_id)
-        print ('https://fantasy.premierleague.com/drf/entry/'+ str(entry['entry']) + '/event/' + str(gw_id) + '/picks')
+        #print ('https://fantasy.premierleague.com/drf/entry/'+ str(entry['entry']) + '/event/' + str(gw_id) + '/picks')
         temp_dict={}
         temp_list=json.loads(requests.get('https://fantasy.premierleague.com/drf/entry/'+ str(entry['entry']) + '/event/' + str(gw_id) + '/picks').text)
         temp_dict = {'entry_id':entry['entry'], \
@@ -53,18 +53,16 @@ def get_entry_gw_picks(list_classic_standings, gw_id):
 # Create your views here.
 def index(request,league_id=231600):
     # Here goes!
-    list_current_gw,gw_id=get_current_events_details()
-    print(gw_id)
+    list_current_gw,gw_id,gw_name,gw_finished=get_current_events_details()
     list_classic_standings,league_name=get_league_classic_standings(league_id)
-    print(type(list_classic_standings))
-    print(league_name)
     gw_picks=get_entry_gw_picks(list_classic_standings,gw_id)
     list_live_leaders=sorted(gw_picks, key = lambda i: i['adjusted_points'],reverse=True)
     list_live_leaders_TopX=[x for _, x in zip(range(5), list_live_leaders)]
     max_points=max(list_live_leaders_TopX, key = lambda i: i['adjusted_points'])
     list_managers_of_the_week=list(filter(lambda gw: gw['adjusted_points'] == max_points , list_live_leaders_TopX))
-    print(list_live_leaders_TopX)
     context = {'league_name': league_name, \
+                'gw_name': gw_name, \
+                'gw_finished': gw_finished, \
                 'list_current_gw': list_current_gw, \
                 'list_live_leaders_TopX' : list_live_leaders_TopX,
                 'list_managers_of_the_week': list_managers_of_the_week}
