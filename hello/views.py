@@ -29,7 +29,7 @@ def get_entry_gw_picks(list_classic_standings, gw_id):
         print ('https://fantasy.premierleague.com/drf/entry/'+ str(entry['entry']) + '/event/' + str(gw_id) + '/picks')
         temp_dict={}
         temp_list=json.loads(requests.get('https://fantasy.premierleague.com/drf/entry/'+ str(entry['entry']) + '/event/' + str(gw_id) + '/picks').text)
-        temp_dict = {'entry_id':entry, \
+        temp_dict = {'entry_id':entry['entry'], \
                     'active_chip':temp_list['active_chip'], \
                     'points':temp_list['entry_history']['points'], \
                     'overall_total_points':temp_list['entry_history']['total_points'], \
@@ -60,10 +60,13 @@ def index(request,league_id=231600):
     print(league_name)
     gw_picks=get_entry_gw_picks(list_classic_standings,gw_id)
     list_live_leaders=sorted(gw_picks, key = lambda i: i['adjusted_points'],reverse=True)
-    live_leaders=[x for _, x in zip(range(5), list_live_leaders)]
-
+    list_live_leaders_TopX=[x for _, x in zip(range(5), list_live_leaders)]
+    max_points=max(list_live_leaders_TopX, key = lambda i: i['adjusted_points'])
+    list_managers_of_the_week=list(filter(lambda gw: gw['adjusted_points'] == max_points , list_live_leaders_TopX))
+    print(list_live_leaders_TopX)
     context = {'league_name': league_name, \
                 'list_current_gw': list_current_gw, \
-                'live_leaders' : live_leaders}
+                'list_live_leaders_TopX' : list_live_leaders_TopX,
+                'list_managers_of_the_week': list_managers_of_the_week}
 
     return render(request, 'index.html', context)

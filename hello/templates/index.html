@@ -79,17 +79,21 @@
   <thead>
     <tr>
       <th scope="col">Manager</th>
+      <th scope="col">Transfers</th>
       <th scope="col">Points</th>
       <th scope="col">Hits</th>
-      <th scope="col">Real Points</th>
+      <th scope="col">Bench Pts</th>
+      <th scope="col">Real Pts</th>
     </tr>
   </thead>
   <tbody>
-      {% for live_leader in live_leaders %}
+      {% for live_leader in list_live_leaders_TopX %}
           <tr>
               <td>{{live_leader.player_name}}</td>
+              <td>{{live_leader.event_transfers}}</td>
               <td>{{live_leader.points}}</td>
               <td>{{live_leader.event_transfers_cost}}</td>
+              <td>{{live_leader.points_on_bench}}</td>
               <td>{{live_leader.adjusted_points}}</td>
           </tr>
       {% endfor %}
@@ -107,8 +111,8 @@
                     <h1>Manager of the Week will update after the current game week is finished.</h1>
                     <p>Come back later</p>
                     {% else %}
-                    <h1>{{live_leaders.player_name}} wins Manager of the Week.</h1>
-                    <p>With {{dict_manager_of_the_week.event_total}} points, team{{dict_manager_of_the_week.entry_name}} have won their manager {{dict_manager_of_the_week.player_name}} the manager of the week title for {{current_gameweek}}</p>
+                    <h1>{% for manager in list_managers_of_the_week %} {{ manager.player_name }} {% endfor %} wins Manager of the Week.</h1>
+                    <p></p>
                     <p><a class="btn btn-lg btn-primary" href="#" role="button"></a></p>
                     {% endif %}
               </div>
@@ -171,7 +175,7 @@
 
         <div class="row featurette">
           <div class="col-md-7">
-            <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
+            <h2 class="featurette-heading">League Standings<span class="text-muted">It'll blow your mind.</span></h2>
             <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
           </div>
           <div class="col-md-5">
