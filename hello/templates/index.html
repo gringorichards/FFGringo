@@ -78,6 +78,7 @@
   <thead>
     <tr>
       <th scope="col">Manager</th>
+      <th scope="col">Chips</th>
       <th scope="col">Moves</th>
       <th scope="col">Hits</th>
       <th scope="col">Bench Pts</th>
@@ -88,6 +89,7 @@
       {% for live_leader in list_live_leaders_TopX %}
           <tr>
               <td>{{live_leader.player_name}}</td>
+              <td>{{live_leader.active_chip}}</td>
               <td>{{live_leader.event_transfers}}</td>
               <td>{{live_leader.event_transfers_cost}}</td>
               <td>{{live_leader.points_on_bench}}</td>
