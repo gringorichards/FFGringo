@@ -59,7 +59,10 @@ def index(request,league_id=231600):
     list_live_leaders=sorted(gw_picks, key = lambda i: i['adjusted_points'],reverse=True)
     list_live_leaders_TopX=[x for _, x in zip(range(5), list_live_leaders)]
     max_points=max(list_live_leaders_TopX, key = lambda i: i['adjusted_points'])
-    list_managers_of_the_week=list(filter(lambda gw: gw['adjusted_points'] == max_points , list_live_leaders_TopX))
+    print (type(max_points))
+    #live_leaders=list(filter(lambda gw: gw['rank'] <=5 , list_of_managers_and_scores))
+    list_managers_of_the_week=list(filter(lambda gw: gw['adjusted_points'] == max_points['adjusted_points'],  list_live_leaders_TopX))
+    print (type(list_managers_of_the_week))
     context = {'league_name': league_name, \
                 'gw_name': gw_name, \
                 'gw_finished': gw_finished, \
