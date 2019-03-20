@@ -20,7 +20,8 @@ def get_league_classic_standings(league_id):
     json_league_standings=json.loads(requests.get('https://fantasy.premierleague.com/drf/leagues-classic-standings/'+ str(league_id)).text)
     list_classic_standings=(json_league_standings['standings']['results'])
     league_name=(json_league_standings['league']['name'])
-    return(list_classic_standings, league_name)
+    ZZZ_list_size=len(list_classic_standings)
+    return(list_classic_standings, league_name,ZZZ_list_size)
 
 # https://fantasy.premierleague.com/drf/entry/entry_id/event/gw_id/picks
 def get_entry_gw_picks(list_classic_standings, gw_id):
@@ -54,7 +55,7 @@ def get_entry_gw_picks(list_classic_standings, gw_id):
 def index(request,league_id=231600):
     # Here goes!
     list_current_gw,gw_id,gw_name,gw_finished=get_current_events_details()
-    list_classic_standings,league_name=get_league_classic_standings(league_id)
+    list_classic_standings,league_name,ZZZ_list_size=get_league_classic_standings(league_id)
     gw_picks=get_entry_gw_picks(list_classic_standings,gw_id)
     list_live_leaders=sorted(gw_picks, key = lambda i: i['adjusted_points'],reverse=True)
     list_live_leaders_TopX=[x for _, x in zip(range(5), list_live_leaders)]
@@ -68,6 +69,7 @@ def index(request,league_id=231600):
                 'gw_finished': gw_finished, \
                 'list_current_gw': list_current_gw, \
                 'list_live_leaders_TopX' : list_live_leaders_TopX,
-                'list_managers_of_the_week': list_managers_of_the_week}
+                'list_managers_of_the_week': list_managers_of_the_week,
+                'ZZZ_list_size': ZZZ_list_size}
 
     return render(request, 'index.html', context)
